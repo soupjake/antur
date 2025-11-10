@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bamkj37cu7mff"]
+
+[ext_resource type="Script" uid="uid://dx125up4vi4rr" path="res://scenes/BaseEnemy.gd" id="1_r0d26"]
+[ext_resource type="Texture2D" uid="uid://bqa4wmnwn576r" path="res://assets/sprites/Dragon.png" id="2_07l05"]
+
+[resource]
+script = ExtResource("1_r0d26")
+name = "Dragon"
+texture = ExtResource("2_07l05")
+health = 45
+damage = 15
