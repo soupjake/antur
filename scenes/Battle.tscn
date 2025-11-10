@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bxo8ec73h6odf"]
+[gd_scene load_steps=18 format=3 uid="uid://bxo8ec73h6odf"]
 
 [ext_resource type="Texture2D" uid="uid://ei6aqoyl06qp" path="res://assets/sprites/Background.png" id="1"]
 [ext_resource type="Script" uid="uid://dxu66oe15lbtm" path="res://scenes/Battle.gd" id="1_2rusm"]
@@ -56,6 +56,54 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 corner_detail = 1
+
+[sub_resource type="Animation" id="Animation_0y4rl"]
+resource_name = "enemy_damaged"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemyContainer/Enemy:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ggyc1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemyContainer/Enemy:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerPanel/MarginContainer/PlayerData/ProgressBar:theme_override_styles/fill:bg_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 1, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p8l6q"]
+_data = {
+&"RESET": SubResource("Animation_ggyc1"),
+&"enemy_damaged": SubResource("Animation_0y4rl")
+}
 
 [node name="Battle" type="Control"]
 layout_mode = 3
@@ -254,4 +302,11 @@ size_flags_vertical = 8
 theme_override_fonts/font = ExtResource("4_6grd4")
 text = ">"
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_p8l6q")
+}
+
+[connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/AttackButton" to="." method="_on_attack_button_pressed"]
+[connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/DefendButton" to="." method="_on_defend_button_pressed"]
 [connection signal="pressed" from="ActionsPanel/MarginContainer/Actions/RunButton" to="." method="_on_run_button_pressed"]
